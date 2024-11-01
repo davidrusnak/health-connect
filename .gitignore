@@ -1,2 +1,2 @@
-medical_records.db
-__pycache__/*
+backend/medical_records.db
+backend/__pycache__/*

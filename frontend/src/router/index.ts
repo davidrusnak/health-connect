@@ -74,18 +74,18 @@ const router = createRouter({
                 LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
               },
               meta: {
-                headline: "Vzdělávací materiály",
+                headline: "Edukační materiály",
               }
             },
             {
-              path: "edukacni-materialy/vytvorit",
-              name: "doctor-education-resource-new",
+              path: "edukacni-materialy/:id",
+              name: "doctor-education-resource-reader",
               components: {
-                default: () => import("@/views/doctor/EducationResourceNewView.vue"),
+                default: () => import("@/views/doctor/EducationResourceReaderView.vue"),
                 LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
               },
               meta: {
-                headline: "Nový vzdělávací materiál",
+                headline: "",
               }
             },
             {
@@ -96,7 +96,7 @@ const router = createRouter({
                 LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
               },
               meta: {
-                headline: "",
+                headline: "Editace edukačního materiálu",
               }
             },
             {

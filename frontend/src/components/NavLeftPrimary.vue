@@ -36,8 +36,7 @@
   </template>
 
   <template v-else>
-    <div class="fixed top-20 left-0 right-0 w-[4.6rem] xl:w-full max-w-fit transition-all ease-in-out"
-      :class="{ '!w-[4.5rem]': y > 100 }">
+    <div class="fixed top-20 left-0 right-0 w-[4.6rem] xl:w-full max-w-fit transition-all ease-in-out">
       <n-menu :options="menuOptions" v-model:value="selectedKey" :icon-size="28" class="transition-all ease-in-out"
         @update-value="(routeName: string) => emit('clickedEntry', routeName)" />
     </div>
@@ -54,9 +53,7 @@ import { Menu as MenuIcon } from "@vicons/ionicons5";
 import Icon from "./Icon.vue";
 import { useRoute } from "vue-router";
 import { default_route_name } from "../router";
-import { useWindowScroll } from "@vueuse/core";
 
-const { y } = useWindowScroll();
 
 const props = defineProps<{
   mobile?: boolean;

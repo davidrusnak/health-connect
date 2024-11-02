@@ -1,9 +1,5 @@
 <template>
-  <n-data-table
-    :columns="columns"
-    :data="data"
-    :pagination="pagination"
-  />
+  <n-data-table :columns="columns" :data="data" :pagination="pagination" />
 </template>
 
 <script lang="ts">
@@ -24,7 +20,7 @@ interface RowData {
 
 function createColumns(router): DataTableColumns<RowData> {
   return [
-    {
+    /* {
       type: 'selection'
     },
     {
@@ -33,27 +29,27 @@ function createColumns(router): DataTableColumns<RowData> {
       renderExpand: (rowData) => {
         return `${rowData?.status_details}`
       }
-    },
-    {
+    }, */
+    /* {
       title: '#',
       key: 'key',
       render: (_, index) => {
         return `${index + 1}`
       }
-    },
+    }, */
     {
-      title: 'Name',
+      title: 'Jméno',
       key: 'name'
     },
     {
-      title: 'Age',
+      title: 'Věk',
       key: 'age'
     },
     {
-      title: 'Biological sex',
+      title: 'Biologické pohlaví',
       key: 'sex'
     },
-    {
+    /* {
       title: 'Tags',
       key: 'tags',
       render(row) {
@@ -74,13 +70,13 @@ function createColumns(router): DataTableColumns<RowData> {
         })
         return tags
       }
-    },
+    }, */
     {
       title: 'Status',
       key: 'status'
     },
     {
-      title: 'Action',
+      title: '',
       key: 'actions',
       render(row) {
         return h(
@@ -102,16 +98,16 @@ function createData(): RowData[] {
       key: 0,
       "name": "Mustafa Abrahim",
       "age": 34,
-      "sex": "Male",
-      "status": "Approved",
+      "sex": "M",
+      "status": "Žádné upozornění",
       tags: []
     },
     {
       key: 1,
       "name": "Mustafa Abrahim",
       "age": 34,
-      "sex": "Male",
-      "status": "Approved",
+      "sex": "M",
+      "status": "Žádné upozornění",
       tags: []
     }
   ]

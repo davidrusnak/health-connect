@@ -1,5 +1,9 @@
 <template>
-  <PatientsTable :patients="patients" />
+  <div class="max-w-7xl">
+    <div class="px-4 py-6 sm:px-0">
+        <PatientsTable :patients="patients" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

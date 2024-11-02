@@ -1,2 +1,6 @@
-medical_records.db
+*.db
 backend/__pycache__/*
+
+.vscode/
+
+__pycache__

@@ -1,6 +1,7 @@
 import asyncio
 import base64
 import json
+from typing import Dict, List
 from fhirpy import AsyncFHIRClient
 
 
@@ -25,11 +26,27 @@ async def main():
 
     #########################
 
-    await get_thingies(client)
+    to_get_list = ['Observation', 'Condition', 'Procedure', 'ServiceRequest', 'Encounter', 'DiagnosticReport', "Practitioner"]
+    resource_dict = await get_patient_data(client, '36', to_get_list)
+    # print key and the lenght of the inner list
+    for key, value in resource_dict.items():
+        print(f"{key}: {len(value)}")
 
     #########################
 
     # await send_service_request(client)
+
+    #########################
+
+    # await get_practitioners(client)
+    """"
+    to_get_list_practitioner = ['Patient', 'Condition', 'Procedure', 'ServiceRequest', 'Encounter', 'DiagnosticReport']
+    resource_dict_practitioner = await get_practitioner_data(client, '1258', to_get_list_practitioner)
+    # print key and the lenght of the inner list
+    for key, value in resource_dict_practitioner.items():
+        print(f"{key}: {len(value)}")
+    """
+
 
 async def get_patients(client: AsyncFHIRClient):
     resources = client.resources('Patient')
@@ -141,71 +158,69 @@ async def send_service_request(client: AsyncFHIRClient):
     await service_request.save()
     print("ServiceRequest created with ID:", service_request["id"])
 
-async def get_thingies(client: AsyncFHIRClient):
-    patient_id = '36'  # Replace with the actual patient ID you want to query
+async def fetch_resources(client: AsyncFHIRClient, patient, resource_type: str):
+    """Fetch all resources of a specified type for the given patient."""
+    return await client.resources(resource_type).search(subject=patient).fetch_all()
 
-    # get patient
+async def print_get_resources_patient(resource_name: str, resources: List):
+    """Print resources in JSON format."""
+    print(f"{resource_name}:")
+    resource_list = [await resource.to_resource() for resource in resources]
+    for resource in resource_list:
+        if (resource_name != 'XXXXX'):
+            print(resource)
+            print(json.dumps(resource, indent=4))
+
+    return resource_list
+
+async def get_patient_data(client: AsyncFHIRClient, patient_id: str, resource_types: List[str]):
+    """Main function to retrieve and print patient data for given resource types."""
+    # Fetch patient
     patient = await client.resources('Patient').get(patient_id)
-    #print(patient)
 
-    observations = await client.resources('Observation').search(subject=patient).fetch_all()
-    #print(observations)
+    # Fetch and print resources based on provided types
+    resource_dict = {}
+    for resource_type in resource_types:
+        resources = await fetch_resources(client, patient, resource_type)
+        resource_dict[resource_type] = await print_get_resources_patient(resource_type, resources)
 
-    # Fetch all observations for the specified patient
-    # observations = await (await client.resources('Observation').search(subject=patient_id)).fetch_all()
-    
+    return resource_dict
 
-    # Fetch all conditions for the specified patient
-    conditions = await client.resources('Condition').search(subject=patient).fetch_all()
+async def get_practitioners(client: AsyncFHIRClient):
+    practitioner = await client.resources('Practitioner').get('1258')
+    print(practitioner)
 
-    # Fetch all procedures for the specified patient
-    procedures = await client.resources('Procedure').search(subject=patient).fetch_all()
+    print(json.dumps(await practitioner.to_resource(), indent=4))
 
-    service_requests = await client.resources('ServiceRequest').search(subject=patient).fetch_all()
 
-    diagnostic_requests = await client.resources('DiagnosticReport').search(subject=patient).fetch_all()
-    print("DiagnosticReports:")
-    for diagnostic_report in diagnostic_requests:
-        print(diagnostic_report)
-        print(json.dumps(await diagnostic_report.to_resource(), indent=4))
+##############
 
-    print("ServiceRequests:")
-    for service_request in service_requests:
-        print(service_request)
-        print(json.dumps(await service_request.to_resource(), indent=4))
+async def fetch_resources_for_practitioner(client: AsyncFHIRClient, practitioner, resource_type: str):
+    """Fetch all resources of a specified type for the given practitioner."""
+    return await client.resources(resource_type).search(subject=practitioner).fetch_all()
 
-    # Print all observations
-    print("Observations:")
-    for obs in observations:
-        break
-        print(obs)
-        #print(json.dumps(await obs.to_resource(), indent=4))
+async def print_get_resources_practitioner(resource_name: str, resources: List):
+    """Print resources in JSON format."""
+    print(f"{resource_name}:")
+    resource_list = [await resource.to_resource() for resource in resources]
+    for resource in resource_list:
+        if resource_name == 'XXXXX':
+            print(resource)
+            print(json.dumps(resource, indent=4))
+    return resource_list
 
-    # Print all conditions
-    print("\nConditions:")
-    for condition in conditions:
-        break
-        print(condition)
-        #print(json.dumps(await condition.to_resource(), indent=4))
+async def get_practitioner_data(client: AsyncFHIRClient, practitioner_id: str, resource_types: List[str]) -> Dict[str, List[Dict]]:
+    """Main function to retrieve and print practitioner data for given resource types."""
+    # Fetch practitioner
+    practitioner = await client.resources('Practitioner').get(practitioner_id)
 
-    # Print all procedures
-    print("\nProcedures:")
-    for procedure in procedures:
-        break
-        print(procedure)
-        #print(json.dumps(await procedure.to_resource(), indent=4))
+    # Fetch and print resources based on provided types
+    resource_dict = {}
+    for resource_type in resource_types:
+        resources = await fetch_resources_for_practitioner(client, practitioner, resource_type)
+        resource_dict[resource_type] = await print_get_resources_practitioner(resource_type, resources)
 
-    # Search for all ServiceRequests for the specified patient
-    service_requests = await client.resources('ServiceRequest').search(subject=f'Patient/{patient_id}').fetch()
-
-    # Print details of each ServiceRequest
-    for sr in service_requests:
-        print(f"ServiceRequest ID: {sr.id}")
-        print(f"Status: {sr['status']}")
-        print(f"Intent: {sr['intent']}")
-        print(f"Code: {sr['code']['coding'][0]['display'] if sr['code'] and sr['code']['coding'] else 'N/A'}")
-        print(f"Supporting Info: {sr.get('supportingInfo', [])}")
-        print("-" * 40)
+    return resource_dict
 
 if __name__ == '__main__':
     loop = asyncio.new_event_loop()

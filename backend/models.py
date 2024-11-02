@@ -13,7 +13,7 @@ user_doctor_association = Table(
 class User(Base):
     __tablename__ = 'user'
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, nullable=False)
     surname = Column(String, nullable=False)
     gender = Column(String, nullable=False)
@@ -30,7 +30,7 @@ class User(Base):
 class Doctor(Base):
     __tablename__ = 'doctor'
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, nullable=False)
     surname = Column(String, nullable=False)
     titles = Column(String, nullable=False)

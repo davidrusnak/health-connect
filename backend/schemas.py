@@ -9,7 +9,6 @@ class DoctorBase(BaseModel):
     titles: str
 
 class UserBase(BaseModel):
-    id: int
     name: str
     surname: str
     gender: str
@@ -24,12 +23,14 @@ class UserCreate(UserBase):
     pass
 
 class User(UserBase):
+    id: int
     doctors: List[DoctorBase] = []
 
     class Config:
         from_attributes = True
 
 class Doctor(DoctorBase):
+    id: int
     users: List[UserBase] = []
 
     class Config:

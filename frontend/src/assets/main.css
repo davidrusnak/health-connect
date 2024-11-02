@@ -1,39 +1,354 @@
-@import './base.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+@layer components {
+  .window-hover {
+    @apply hover:shadow-lg hover:ring-2 hover:ring-slate-200 transition-all hover:bg-slate-50;
+  }
+  .window-hover-inset {
+    @apply window-hover hover:ring-inset;
+  }
+  .aic-window {
+    @apply bg-white rounded-lg shadow-sm;
   }
 }
 
-@media (min-width: 1024px) {
+@layer base {
+  :root {
+    --header-height: 4rem;
+    --button-height: 3rem;
+    --n-rail-color-active: #1289c4;
+  }
+
+  /* maybe later, fix for flexbox not contracting properly
+  * {
+    min-width: 0;
+  }
+  */
+  .bg-hc {
+    background-color: #f9f9f9;
+  }
+
+  .decoration-hc-primary {
+    text-decoration-color: #1289c4;
+  }
+
+  .text-aic-primary {
+    color: #1d1f20;
+  }
+
+  html {
+    height: 100%;
+    width: 100%;
+    font-family: 'Open Sans', system-ui, sans-serif;
+    @apply bg-hc;
+  }
   body {
-    display: flex;
-    place-items: center;
+    min-height: 100%;
+    width: 100%;
+    @apply flex bg-hc;
+    font-family:
+      'Open Sans',
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif !important;
+  }
+  .n-config-provider,
+  .n-config-provider > div.layout-content > .n-collapse-transition,
+  .n-config-provider > div.layout-content > .n-collapse-transition > main {
+    height: 100%;
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    @apply bg-hc;
+    max-width: 100%;
+    width: 100%;
   }
+
+  h1 {
+    @apply text-2xl md:text-2xl xl:text-3xl font-bold;
+  }
+  h2 {
+    @apply text-xl md:text-xl xl:text-2xl font-bold mb-2 sm:mb-3.5 lg:mb-4;
+  }
+  h3 {
+    @apply text-lg md:text-lg font-bold mb-0.5 sm:mb-1.5;
+  }
+  h4 {
+    @apply text-lg md:text-lg font-semibold mb-0.5 sm:mb-1.5;
+  }
+  h5 {
+    @apply text-base md:text-lg font-semibold mb-0.5 sm:mb-1.5;
+  }
+
+  p {
+    @apply mb-2;
+  }
+}
+
+a {
+  @apply cursor-pointer;
+}
+
+a.regular {
+  @apply text-sky-600;
+}
+
+.main-layout-page {
+  @apply flex flex-col space-y-1.5 lg:space-y-6;
+}
+.main-layout-page > h1 {
+  @apply text-2xl sm:text-2xl md:text-3xl xl:text-3xl tracking-tight font-extrabold text-gray-900;
+}
+.main-layout-page > p {
+  @apply mt-0 max-w-2xl text-lg text-gray-500;
+}
+
+.mobile {
+  > p,
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > h6,
+  > button {
+    @apply mx-4;
+  }
+}
+
+.page-link {
+  @apply underline decoration-4 underline-offset-4 decoration-hc-primary hover:text-aic-primary transition-colors duration-300 hover:transition-colors;
+}
+a > h2 {
+  @apply page-link;
+  text-underline-offset: 6px;
+}
+.link {
+  @apply underline decoration-2 underline-offset-4 decoration-slate-300 hover:text-black transition-all duration-200 hover:transition-all;
+}
+.link-hovered {
+  @apply text-black decoration-hc-primary;
+}
+.link-external {
+  @apply decoration-hc-primary hover:text-black;
+}
+
+/* 
+a {
+  @apply underline;
+}
+
+a > button, a > button > span {
+  @apply no-underline;
+} */
+
+/**
+ * Explanation tokens
+ */
+.token {
+  @apply underline decoration-slate-300 rounded p-1 py-1.5 px-0 cursor-help decoration-solid decoration-2 underline-offset-4 hover:decoration-slate-500;
+}
+.token-dg {
+  @apply decoration-slate-400 bg-slate-100 hover:bg-slate-200; /*bg-yellow-200;*/ /*decoration-yellow-400;*/
+}
+.token-med {
+  @apply decoration-orange-400 bg-orange-100 hover:bg-orange-200; /*decoration-hc-primary bg-green-200 hover:bg-green-200;*/
+}
+.token-med > * {
+  @apply !inline-block !no-underline py-1;
+  vertical-align: middle;
+  line-height: normal;
+}
+.token-term {
+  @apply decoration-slate-100 bg-slate-200 hover:bg-slate-200;
+}
+.token-search {
+  @apply decoration-slate-100 bg-slate-200 hover:bg-slate-200 cursor-default decoration-0 no-underline underline-offset-1 pb-1 px-0.5;
+}
+
+/**
+ * Tags
+*/
+.tag {
+  @apply font-semibold;
+  line-height: 1;
+  background-color: rgba(176, 176, 176, 0.12);
+  border-radius: 1rem;
+  color: #525252;
+  padding: 0.2rem 1rem;
+  height: 2.8rem;
+  white-space: nowrap;
+  position: relative;
+  box-sizing: border-box;
+  cursor: default;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  max-width: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex-inline;
+}
+.report-tag-blue {
+  background-color: rgba(31, 119, 221, 0.12);
+  color: #1374e4;
+}
+.report-tag-green {
+  color: rgb(23, 126, 71);
+  background-color: rgba(24, 160, 88, 0.12);
+}
+.report-tag-grey {
+  color: #979797;
+  background-color: rgba(165, 165, 165, 0.12);
+}
+.report-tag-yellow {
+  @apply text-orange-500;
+  background-color: rgba(240, 160, 32, 0.15);
+}
+.report-tag-yellow-text {
+  @apply text-orange-500;
+}
+
+/**
+ * Drugs card
+ */
+.glossary-card h3 {
+  margin-top: 0.85rem;
+}
+
+.glossary-card a {
+  @apply link link-external;
+}
+
+/**
+  * Animations
+  */
+.hop-enter-active,
+.hop-leave-active {
+  transition:
+    opacity 0.12s,
+    transform 0.12s;
+}
+.hop-enter-from,
+.hop-leave-to {
+  opacity: 0;
+  transform: translateX(-0.5%);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/**
+  * NaiveUI
+  */
+.n-drawer-body-content-wrapper {
+  @apply p-0 !important;
+}
+
+.n-input__prefix {
+  @apply relative right-12;
+}
+
+.n-input__suffix {
+  @apply relative left-2;
+}
+
+.n-base-clear {
+  @apply relative left-8 scale-125 bottom-2.5 cursor-pointer;
+}
+
+.n-base-loading {
+  @apply relative right-1;
+}
+
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
+.n-loading-bar {
+  height: 0.2rem !important;
+  background: #3da89e !important;
+}
+
+.n-progress
+  .n-progress-graph
+  .n-progress-graph-line
+  .n-progress-graph-line-rail {
+  background-color: rgb(205 205 205) !important;
+}
+
+.n-input .n-input__border {
+  border-bottom: 0;
+}
+
+nav.n-breadcrumb {
+  @apply mt-0 mb-0 !important;
+}
+
+.n-button .n-button__content ~ .n-button__icon {
+  margin-left: 0.8rem !important;
+  margin-right: 0 !important;
+}
+
+.n-button.n-button-extra-margins .n-button__content ~ .n-button__icon {
+  margin-right: 0.3rem;
+  margin-left: 1.2rem;
+}
+
+.n-alert .n-alert-body .n-alert-body__title {
+  font-size: 1.22rem !important;
+  font-weight: 800px !important;
+  @apply mt-1 mb-4;
+}
+
+.n-tag.n-tag--checkable {
+  outline: solid;
+  outline-width: 0.13rem;
+  outline-color: darkgrey;
+  outline-offset: -0.1rem;
+}
+
+@media (max-width: 768px) {
+  .v-binder-follower-content {
+    width: calc(100% - 1rem) !important;
+  }
+}
+
+.n-base-select-option {
+  @apply !text-lg !py-3 !px-6;
+}
+
+.n-drawer-header {
+  @apply !justify-stretch !px-0 !py-0.5;
+}
+.n-drawer-header__main {
+  @apply !w-full;
+}
+
+.n-tag__content {
+  text-wrap: balance;
+}
+
+/* Modal */
+.n-dialog.n-modal {
+  @apply !w-full !max-w-full sm:!w-10/12 md:!w-7/12 xl:!w-5/12 md:!max-w-prose;
+  max-width: calc(100vw) !important;
+}
+.n-dialog {
+  @apply !p-4 md:!p-8;
+}
+.n-dialog .n-dialog__title {
+  @apply !text-xl !font-semibold;
 }

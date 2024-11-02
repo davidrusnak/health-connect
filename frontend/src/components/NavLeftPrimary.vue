@@ -45,8 +45,8 @@
 </template>
 
 <script setup lang="ts">
-// TODO: https://www.naiveui.com/en-US/light/components/menu collapsed sider
-import { h, Component, ref, watch } from "vue";
+import { h, ref, watch } from "vue";
+import type { Component } from "vue";
 import { NIcon } from "naive-ui";
 import type { MenuOption } from "naive-ui";
 import { RouterLink } from "vue-router";
@@ -79,10 +79,10 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            name: "home",
+            name: "doctor-home",
           },
         },
-        { default: () => "Rozcestník" }
+        { default: () => "Dashboard" }
       ),
     key: "home",
     icon: renderIcon(Icon, "home"),
@@ -93,14 +93,42 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            name: "about",
+            name: "doctor-patients",
           },
         },
-        { default: () => "About page" }
+        { default: () => "Pacienti" }
       ),
-    key: "about",
+    key: "doctor-patients",
     icon: renderIcon(Icon, "home"),
   },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: "doctor-requests",
+          },
+        },
+        { default: () => "Požadavky" }
+      ),
+    key: "doctor-requests",
+    icon: renderIcon(Icon, "home"),
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: "doctor-education-resources",
+          },
+        },
+        { default: () => "Edukační materiály" }
+      ),
+    key: "doctor-education-resources",
+    icon: renderIcon(Icon, "book"),
+  }
 ];
 
 // make sure the selected menu item matches the route
@@ -128,4 +156,27 @@ watch(
 );
 </script>
 
-<style></style>
+<style>
+/** for some reason, cannot move it to index.css */
+.n-menu .n-menu-item {
+  height: calc(var(--n-item-height) * 1.2);
+  /*padding-right: 1rem;*/
+  min-width: 16rem;
+
+  .n-menu-item-content {
+    padding-right: 1.5rem;
+  }
+}
+
+.n-menu-item-content {
+  height: 3.5rem !important;
+}
+
+.n-menu-item-content-header {
+  @apply ml-1;
+}
+
+.nav-drawer .n-drawer-header {
+  @apply !mx-4 ml-8;
+}
+</style>

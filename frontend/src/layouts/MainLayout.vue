@@ -3,10 +3,10 @@
     MOBILE 
   -->
   <template v-if="mobile">
-    <Header @clickLogo="router.push({ name: 'home' })" :shadow="y > 20" :admin="auth.is_user_doctor()"
-      class="select-none sentry-unmask"
-      :page-title="route.name?.toString() == default_route_name ? 'OnkoRádce' : route.meta?.headline" background="white"
-      :inDeeperPage="!!route?.meta?.parentName">
+    <Header @clickLogo="router.push({ name: 'doctor-home' })" :shadow="y > 20" :admin="isDoctor"
+      class="select-none"
+      :page-title="route.name?.toString() == default_route_name ? 'HealthConnect' : route.meta?.headline"
+      background="white" :inDeeperPage="!!route?.meta?.parentName">
       <template #left>
         <template v-if="route?.meta?.parentName">
           <RouterLink :to="{ name: route.meta.parentName }"><n-icon size="32" class="relative top-1">
@@ -18,7 +18,7 @@
         <div class="flex flex-row space-x-6" v-if="!route.meta?.public">
           <NavLeftPrimary mobile>
             <template #menuDrawer>
-              <n-button type="primary" icon-placement="right" @click="auth.logout()" id="btn-logout">
+              <n-button type="primary" icon-placement="right" id="btn-logout">
                 <span class="text-lg md:text-xl font-semibold mr-2">{{
     "odhlášení"
   }}</span>
@@ -51,34 +51,32 @@
         </router-view>
       </main>
     </div>
-
-    <!-- <NavBottom /> -->
   </template>
 
   <!-- 
     DESKTOP 
   -->
   <template v-else>
-    <Header @clickLogo="router.push(auth.is_user_doctor() ? { name: 'doctor-home' } : { name: 'home' })"
-      :shadow="y > 20" :admin="auth.is_user_doctor()" class="select-none sentry-unmask" background="lg:transparent"
+    <Header @clickLogo="router.push(isDoctor ? { name: 'doctor-home' } : { name: 'patient-home' })" :shadow="y > 20"
+      :admin="isDoctor" class="select-none" background="lg:transparent"
       :hidePageTitle="(y > 100 && width > 1280) || (y > 20 && width <= 1280)">
-      <template #center>
-        <div v-if="auth.is_user_doctor()" class="font-normal text-base">
-          <strong>Přihlášen ako lékař</strong>: {{ auth.user_profile.value?.email }}
+      <template #right>
+        <!-- second button from the right, aligned left -->
+        <div class="flex flex-row items-start w-64 space-x-3">
+          <img class="w-12 rounded-full" src="/dusek.jpeg" alt="Lékař">
+          <div class="flex flex-col space-y-1 mt-1.5">
+            <span class="font-bold">MUDr. Vítězslav Dušek</span>
+            <span>Oddělení detské onkologie</span>
+          </div>
         </div>
       </template>
-      <template #right>
-        <TextButton label="Poskytnout nápad / nahlásit chybu" @click="showFeedbackModal = true"></TextButton>
-      </template>
       <template #right2 v-if="y <= 100">
-        <LogoutButton v-if="!route.meta?.public" />
+        <LogoutButton />
       </template>
     </Header>
 
-    <FeedbackModalContent v-bind:show="showFeedbackModal" @close="showFeedbackModal = false" />
-
-    <div class="layout-content flex flex-col bg-aic-bg">
-      <nav aria-label="Sidebar" class="select-none sentry-unmask" v-if="!route.meta?.public">
+    <div class="layout-content flex flex-col">
+      <nav aria-label="Sidebar" class="select-none">
         <RouterView name="LeftSidebar" @clickedEntry="clickedNavEntry" />
       </nav>
 
@@ -114,26 +112,8 @@
                 {{ route.meta?.description }}
               </p>
               <router-view v-slot="{ Component }">
-                <template v-if="!disableChildComponentTransition">
-                  <Transition mode="out-in" :name="route.meta.transition
-    ? String(route.meta.transition)
-    : 'hop'
-    " appear>
-                    <KeepAlive>
-                      <Suspense>
                         <component :is="Component" class="view main-content z-10" :key="route.path"
                           ref="currentComponent" :class="{ opacity0: route_is_loading }" />
-                        <template #fallback>
-                          <LoadingSpinner />
-                        </template>
-                      </Suspense>
-                    </KeepAlive>
-                  </Transition>
-                </template>
-                <template v-else>
-                  <component :is="Component" class="view main-content z-10" :key="route.path" ref="currentComponent"
-                    :class="{ opacity0: route_is_loading }" />
-                </template>
               </router-view>
             </div>
           </template>
@@ -144,8 +124,6 @@
       </footer> -->
     </div>
   </template>
-
-  <DeveloperBar v-if="devEnabled" class="fixed bottom-2 right-2" />
 </template>
 
 <script setup lang="ts">
@@ -154,18 +132,19 @@ import { useRouter, useRoute } from "vue-router";
 import { useWindowScroll, useWindowSize } from "@vueuse/core";
 import { computed, inject, ref } from "vue";
 import { useLoadingBar } from "naive-ui";
-import auth from "@/services/auth";
 import { default_route_name } from "@/router";
+import { useOptionsStore } from "@/stores/options";
 
 const mobile = inject('mobile');
-const devEnabled = inject('devEnabled');
 const router = useRouter();
 const route = useRoute();
 const route_is_loading = ref(false);
 const loadingBar = useLoadingBar();
 const { y } = useWindowScroll();
 const { width } = useWindowSize();
-const showFeedbackModal = ref(false);
+
+const options = useOptionsStore();
+const isDoctor = computed(() => options.userRole === 'doctor');
 
 const props = defineProps<{
   disableChildComponentTransition?: boolean;

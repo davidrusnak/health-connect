@@ -1,0 +1,113 @@
+{
+  "common": {
+    "fontSize": "1.1rem"
+  },
+  "Alert": {
+    "fontSize": "1.2rem"
+  },
+  "BackTop": {
+    "width": "4rem",
+    "height": "4rem",
+    "iconSize": "2rem",
+    "borderRadius": "2rem",
+    "iconColorHover": "#58b9b0",
+    "iconColorPressed": "#23857CFF"
+  },
+  "Button": {
+    "fontSizeSmall": "1.1rem",
+    "paddingSmall": "1.2em 1.35rem",
+
+    "fontSizeMedium": "1.2rem",
+    "paddingMedium": "1.5em 1.8rem",
+
+    "fontSizeLarge": "1.3rem",
+    "heightLarge": "60px",
+    "borderRadiusLarge": "0.35rem",
+
+    "colorPrimary": "#39A49AFF",
+    "colorHoverPrimary": "#58b9b0",
+    "colorPressedPrimary": "#23857CFF",
+    "colorFocusPrimary": "#58b9b0"
+  },
+  "Card": {
+    "borderRadius": "0.8rem"
+  },
+  "Checkbox": {
+    "sizeLarge": "2rem",
+    "fontSizeLarge": "1.2rem"
+  },
+  "Drawer": {
+    "headerPadding": "0.8rem 2rem",
+    "titleFontSize": "1.3rem",
+    "titleFontWeight": "600",
+    "lineHeight": "1.8",
+    "closeIconColor": "rgba",
+    "closeIconColorHover": "",
+    "closeSize": "32px",
+    "closeIconSize": "36px",
+    "closeBorderRadius": "3px"
+  },
+  "Input": {
+    "heightMedium": "3.2rem",
+    "heightLarge": "3.7rem",
+    "fontSizeLarge": "1.3rem",
+    "fontSizeMedium": "1.15rem",
+    "iconSize": "2rem",
+    "paddingLarge": "0 1.5rem",
+    "paddingMedium": "0 1.5rem",
+    "placeholderColor": "rgba(69, 69, 69, 1)"
+  },
+  "LoadingBar": {
+    "colorLoading": "#58b9b0FF",
+    "height": "3px"
+  },
+  "Menu": {
+    "itemHeight": "3rem",
+    "fontSize": "1.2rem",
+    "borderRadius": "0.3rem",
+    "itemColorActive": "rgba(88, 185, 176, 0.15)",
+    "itemColorActiveHover": "rgba(88, 185, 176, 0.3)",
+    "itemColorActiveCollapsed": "rgba(88, 185, 176, 0.1)",
+    "itemTextColorActive": "#1E8E85FF",
+    "itemTextColorActiveHover": "#074540FF",
+    "itemTextColorChildActive": "#1E8E85FF",
+    "itemTextColorChildActiveHover": "#006F66FF"
+  },
+  "Pagination": {
+    "buttonIconSizeLarge": "2.5rem",
+    "itemSizeLarge": "3.5rem",
+    "itemFontSizeLarge": "1.6rem"
+  },
+  "Radio": {
+    "radioSizeMedium": "2.5rem",
+    "radioSizeLarge": "4.5rem",
+    "fontSizeMedium": "1.25rem",
+    "fontSizeLarge": "1.4rem"
+  },
+  "Spin": {
+    "textColor": "#58b9b0",
+    "color": "#58b9b0"
+  },
+  "Tag": {
+    "heightLarge": "2.8rem",
+    "borderRadius": "1rem",
+    "fontSizeLarge": "1.05rem",
+    "fontWeightStrong": "600",
+    "padding": "0.2rem 1rem",
+    "colorChecked": "#02897D",
+    "colorCheckedHover": "#5fc7bd",
+    "colorCheckedPressed": "#3a8780"
+  },
+  "Tabs": {
+    "tabFontSizeMedium": "1.1rem",
+    "tabGapMediumLine": "2rem",
+    "tabPaddingMediumLine": "0.75rem 0",
+    "tabTextColorActiveLine": "#0B9D8CFF",
+    "tabTextColorHoverLine": "#0D997FFF",
+    "tabTextColorActiveBar": "#18A087FF",
+    "tabTextColorHoverBar": "#18A095FF",
+    "barColor": "#18A087FF",
+    "tabFontWeight": "600",
+    "tabFontWeightActive": "600"
+  }
+}

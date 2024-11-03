@@ -1,4 +1,4 @@
-export interface EducationResource {
+export interface EduResource {
     fileId: string;
     type: 'html' | 'link_pdf' | 'link_external';
     title: string;

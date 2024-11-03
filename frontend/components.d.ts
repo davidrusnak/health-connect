@@ -8,6 +8,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Card: typeof import('./src/components/Card.vue')['default']
+    EduResourceCard: typeof import('./src/components/EduResourceCard.vue')['default']
+    EduResourceEditor: typeof import('./src/components/EduResourceEditor.vue')['default']
+    EduResourceList: typeof import('./src/components/EduResourceList.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     Icon: typeof import('./src/components/Icon.vue')['default']
     InfolibDocumentCard: typeof import('./src/components/InfolibDocumentCard.vue')['default']
@@ -20,9 +23,12 @@ declare module 'vue' {
     NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDataTable: typeof import('naive-ui')['NDataTable']
+    NDescriptions: typeof import('naive-ui')['NDescriptions']
+    NDescriptionsItem: typeof import('naive-ui')['NDescriptionsItem']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
     NDrawer: typeof import('naive-ui')['NDrawer']
     NDrawerContent: typeof import('naive-ui')['NDrawerContent']
+    NFlex: typeof import('naive-ui')['NFlex']
     NForm: typeof import('naive-ui')['NForm']
     NFormItem: typeof import('naive-ui')['NFormItem']
     NGlobalStyle: typeof import('naive-ui')['NGlobalStyle']

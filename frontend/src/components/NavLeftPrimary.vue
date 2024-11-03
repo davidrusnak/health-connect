@@ -118,12 +118,12 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            name: "doctor-education-resources",
+            name: "doctor-edu-resources",
           },
         },
         { default: () => "Edukační materiály" }
       ),
-    key: "doctor-education-resources",
+    key: "doctor-edu-resources",
     icon: renderIcon(Icon, "book"),
   }
 ];

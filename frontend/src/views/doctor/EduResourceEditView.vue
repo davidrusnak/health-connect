@@ -1,17 +1,20 @@
 <template>
   <section class="max-w-lg">
-  <n-form ref="formRef" :model="formValue" :rules="rules" :validate-messages="messages">
-    <n-form-item label="Název edukačního materiálu" path="user.name">
-      <n-input v-model:value="formValue.name" placeholder="Název" />
-    </n-form-item>
-    <n-form-item>
-      <n-button @click="handleValidateClick">
-        Uložit
-      </n-button>
-    </n-form-item>
-  </n-form></section>
+    <n-form ref="formRef" :model="formValue" :rules="rules" :validate-messages="messages">
+      <div class="flex flex-row items-center space-x-4 justify-items-stretch w-full min-w-full max-w-full">
+        <n-form-item label="Název edukačního materiálu" path="user.name">
+          <n-input v-model:value="formValue.name" placeholder="Název" />
+        </n-form-item>
+        <n-button type="primary" @click="handleValidateClick">
+          Uložit
+        </n-button>
+      </div>
+    </n-form>
+  </section>
 
-  CKEDITOR
+  <div class="max-w-7xl">
+    <EduResourceEditor v-model="editorContent" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -20,6 +23,8 @@ import { ref } from 'vue';
 
 const formRef = ref<FormInst | null>(null)
 const message = useMessage();
+
+const editorContent = ref('<h1>YESSS</h1>');
 
 const formValue = ref({
   name: ''

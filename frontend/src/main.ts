@@ -5,6 +5,7 @@ import { cs } from '@formkit/i18n'
 import { defaultConfig, plugin } from '@formkit/vue'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
+import { CkeditorPlugin } from '@ckeditor/ckeditor5-vue';
 
 import App from './App.vue'
 import router from './router'
@@ -24,5 +25,6 @@ app.use(plugin, defaultConfig({
     locale: 'cs',
 }))
 app.use(autoAnimatePlugin)
+app.use(CkeditorPlugin)
 
 app.mount('#app')

@@ -68,9 +68,9 @@ const router = createRouter({
             },
             {
               path: "edukacni-materialy",
-              name: "doctor-education-resources",
+              name: "doctor-edu-resources",
               components: {
-                default: () => import("@/views/doctor/EducationResourcesView.vue"),
+                default: () => import("@/views/doctor/EduResourcesView.vue"),
                 LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
               },
               meta: {
@@ -79,20 +79,20 @@ const router = createRouter({
             },
             {
               path: "edukacni-materialy/:id",
-              name: "doctor-education-resource-reader",
+              name: "doctor-edu-resource-reader",
               components: {
-                default: () => import("@/views/doctor/EducationResourceReaderView.vue"),
+                default: () => import("@/views/doctor/EduResourceReaderView.vue"),
                 LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
               },
               meta: {
-                headline: "",
+                headline: "Náhled edukačního materiálu",
               }
             },
             {
               path: "edukacni-materialy/editovat/:id",
-              name: "doctor-education-resource-edit",
+              name: "doctor-edu-resource-edit",
               components: {
-                default: () => import("@/views/doctor/EducationResourceEditView.vue"),
+                default: () => import("@/views/doctor/EduResourceEditView.vue"),
                 LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
               },
               meta: {

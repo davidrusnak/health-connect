@@ -1,7 +1,14 @@
 # crud.py
+import uuid
+
+from fastapi import File
+from flask import request
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.future import select
+
+from schemas import RequestBase
+from models import RequestModel
 from models import Base
 from models import DoctorModel, PatientModel, DocumentModel, PatientDocumentAccess
 import schemas
@@ -23,6 +30,28 @@ async def init_db():
 async def get_patient(db: AsyncSession, patient_id: int):
     result = await db.execute(select(PatientModel).filter(PatientModel.id == patient_id))
     return result.scalars().first()
+
+async def get_request(db: AsyncSession, request_id: int):
+    result = await db.execute(select(RequestModel).filter(RequestModel.id == request_id))
+
+    request = result.scalars().first()
+    print(request)
+    if request is not None:
+        return request
+        # with open(request.image_path, "rb") as file:
+        #     return request
+
+    return None
+
+async def get_requests_for_patient(db: AsyncSession, patient_id: int):
+    result = await db.execute(select(RequestModel).filter(RequestModel.to_id == patient_id)
+                              .union(select(RequestModel).filter(RequestModel.from_id == patient_id)))
+    return result.all()
+
+async def get_requests_for_doctors(db: AsyncSession, doctor_id: int):
+    result = await db.execute(select(RequestModel).filter(RequestModel.to_id == doctor_id)
+                              .union(select(RequestModel).filter(RequestModel.from_id == doctor_id)))
+    return result.all()
 
 # Function to assign a parent to a patient
 async def assign_parent(db: AsyncSession, patient_id: int, parent_id: int):
@@ -68,6 +97,20 @@ async def create_doctor(db: AsyncSession, doctor_data: schemas.DoctorCreate):
     await db.commit()
     await db.refresh(db_doctor)
     return db_doctor
+
+async def save_request(db: AsyncSession, request_base: RequestBase, file: File):
+    contents = await file.read()
+    extension = file.filename.split(".")[-1] if "." in file.filename else ""
+    new_name = f"{uuid.uuid4()}.{extension}"
+    path = f"files/{new_name}"
+    with open(path, "wb") as f:
+        f.write(contents)
+
+    db_request = RequestModel(**request_base.model_dump(), image_path=path)
+    db.add(db_request)
+    await db.commit()
+    await db.refresh(db_request)
+    return db_request
 
 # Function to get a doctor by ID
 async def get_doctor(db: AsyncSession, doctor_id: int):

@@ -1,6 +1,11 @@
 # schemas.py
+from fastapi import File
 from pydantic import BaseModel, Field
 from typing import List, Optional
+
+from backend_old_non_functional.models import RequestModel
+from models import RequestType, RequestorType
+
 
 class DocumentBase(BaseModel):
     title: str
@@ -47,3 +52,21 @@ class DoctorSchema(DoctorBase):
 
     class Config:
         from_attributes = True
+
+class RequestBase(BaseModel):
+    requestor_type: RequestorType
+    from_id: int
+    to_id: int
+    request_type: RequestType
+    text: str
+
+class RequestCreate(RequestBase):
+    pass
+
+class RequestSchema(RequestBase):
+    id: int
+    image_path: str
+
+    class Config:
+        from_attributes = True
+        use_enum_values = True

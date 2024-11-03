@@ -65,7 +65,7 @@
           </n-descriptions-item>
         </n-descriptions>
       </div>
-      <div class="mt-4"><Button label="Odeslat" @click="request_state = 'sending'"></Button></div>
+      <div class="mt-4"><Button label="Odeslat" @click="request_state = 'sent'"></Button></div>
     </div>
 
     <div v-else-if="request_state === 'sending'">

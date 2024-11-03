@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 left-0 right-0 text-xs leading-tight h-fit z-10 transition-shadow ease-in-out"
+  <header class="sticky top-0 left-0 right-0 text-xs leading-tight h-fit z-10 transition-shadow ease-in-out bg-white border-b-2 border-b-slate-100"
     :class="{ 'shadow-lg lg:shadow-none': shadow }">
     <div class="flex flex-wrap justify-between items-center px-3 xl:px-7 py-2 lg:py-4" 
         :class="{'bg-aic-bg': background === 'white', 'lg:bg-transparent': background === 'lg:transparent', 'bg-aic-bg-rose': background === 'rose' }" v-auto-animate>
@@ -11,7 +11,7 @@
             <span v-if="pageTitle && !hidePageTitle" class="font-bold text-lg sm:text-xl md:text-2xl">{{
               pageTitle
             }}</span>
-            <span v-else class="cursor-pointer w-max font-bold text-xl md:text-2xl relative right-0.5 top-0.5" :class="{'opacity-0 xl:opacity-1000 transition-opacity duration-200': hidePageTitle}">
+            <span v-else class="cursor-pointer w-max font-bold text-xl md:text-2xl relative right-0.5 top-0.5">
               HealthConnect
             </span>
           </a>

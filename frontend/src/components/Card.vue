@@ -15,8 +15,7 @@
     <div v-if="!hideFooter" class="flex items-center justify-center px-4 py-3 sm:px-6">
       <slot name="footer"></slot>
     </div>
-    <template v-if="cornerPointer">
-      <IconCornerPointer />
+    <template v-if="cornerPointer">X
     </template>
   </div>
 </template>

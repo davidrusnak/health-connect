@@ -11,31 +11,31 @@ import { ref } from 'vue';
 
 const patients = ref([
     {
-      "name": "Mustafa Abrahim",
+      "name": "Jana Malá",
       "age": 34,
       "gender": "Male",
       "status": "Approved"
     },
     {
-      "name": "Mustafa Abrahim",
+      "name": "Jana Malá",
       "age": 34,
       "gender": "Male",
       "status": "Approved"
     },
     {
-      "name": "Mustafa Abrahim",
+      "name": "Jana Malá",
       "age": 34,
       "gender": "Male",
       "status": "Approved"
     },
     {
-      "name": "Mustafa Abrahim",
+      "name": "Jana Malá",
       "age": 34,
       "gender": "Male",
       "status": "Approved"
     },
     {
-      "name": "Mustafa Abrahim",
+      "name": "Jana Malá",
       "age": 34,
       "gender": "Male",
       "status": "Pending Sign"

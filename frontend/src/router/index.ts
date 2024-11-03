@@ -27,7 +27,7 @@ const router = createRouter({
             LeftSidebar: false,
           },
           meta: {
-            headline: "HealthConnect demo - výběr role",
+            headline: "Demo - výběr role",
           }
         },
         {
@@ -107,61 +107,75 @@ const router = createRouter({
                 LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
               },
               meta: {
-                headline: "Požadavky",
+                headline: "Žádosti",
               }
             }
           ]
         },
 
         // Patient routes
-        /* {
+        {
           path: 'pacient',
-          component: () => import("@/layouts/MainLayout.vue"), // Assuming the same layout for patient
           children: [
-            {
-              path: "edukacni-materialy",
-              name: "patient-education-resources",
-              component: () => import("../views/patient/EducationResourcesView.vue"),
-              meta: {
-                headline: "",
-              }
-            },
-            {
-              path: "edukacni-materialy/:id",
-              name: "patient-education-resource-viewer",
-              component: () => import("../views/patient/EducationResourceViewer.vue"),
-              meta: {
-                headline: "",
-              }
-            },
             {
               path: "",
               name: "patient-home",
-              component: () => import("../views/patient/HomeView.vue"),
+              components: {
+                default: () => import("@/views/patient/HomeView.vue"),
+                LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
+              },
               meta: {
-                headline: "",
+                headline: "Rozcestník",
               }
             },
             {
               path: "lekarske-zaznamy",
               name: "patient-reports",
-              component: () => import("../views/patient/ReportsView.vue"),
+              components: {
+                default: () => import("@/views/patient/ReportsView.vue"),
+                LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
+              },
               meta: {
-                headline: "",
+                headline: "Lékařské zprávy",
+              }
+            },
+            {
+              path: "edukacni-materialy",
+              name: "patient-edu-resources",
+              components: {
+                default: () => import("@/views/patient/EducationResourcesView.vue"),
+                LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
+              },
+              meta: {
+                headline: "Edukační materiály",
+              }
+            },
+            {
+              path: "edukacni-materialy/:id",
+              name: "patient-edu-resource-reader",
+              components: {
+                default: () => import("@/views/patient/EducationResourceReaderView.vue"),
+                LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
               }
             },
             {
               path: "lekarske-zaznamy/:id",
               name: "patient-report-detail",
-              component: () => import("../views/patient/ReportDetailView.vue"),
+              components: {
+                default: () => import("@/views/patient/ReportDetailView.vue"),
+                LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
+              },
               meta: {
-                headline: "",
+                headline: "Zpráva",
               }
             },
             {
               path: "pozadavek-schuzka",
               name: "patient-request-appointment",
-              component: () => import("../views/patient/RequestAppointmentView.vue"),
+              components: {
+                default: () => import("@/views/patient/RequestAppointmentView.vue"),
+                LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
+              },
               meta: {
                 headline: "",
               }
@@ -169,7 +183,10 @@ const router = createRouter({
             {
               path: "pozadavek-predpis",
               name: "patient-request-prescription",
-              component: () => import("../views/patient/RequestPrescriptionView.vue"),
+              components: {
+                default: () => import("@/views/patient/RequestPrescriptionView.vue"),
+                LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
+              },
               meta: {
                 headline: "",
               }
@@ -177,37 +194,38 @@ const router = createRouter({
             {
               path: "pozadavky",
               name: "patient-requests",
-              component: () => import("../views/patient/RequestsView.vue"),
+              components: {
+                default: () => import("@/views/patient/RequestsView.vue"),
+                LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
+              },
               meta: {
-                headline: "",
+                headline: "Žádosti",
               }
             },
             {
               path: "pozadavek-dokumentace",
               name: "patient-request-upload",
-              component: () => import("../views/patient/RequestUpload.vue"),
+              components: {
+                default: () => import("@/views/patient/RequestUpload.vue"),
+                LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
+              },
               meta: {
-                headline: "",
+                headline: "Upload dokumentace",
               }
             },
             {
               path: "checkin",
               name: "patient-task-checkin",
-              component: () => import("../views/patient/TaskCheckinView.vue"),
+              components: {
+                default: () => import("@/views/patient/TaskCheckinView.vue"),
+                LeftSidebar: () => import("@/components/NavLeftPrimary.vue"),
+              },
               meta: {
-                headline: "",
+                headline: "Self-checkin",
               }
-            },
-            {
-              path: "ulohy",
-              name: "patient-tasks",
-              component: () => import("../views/patient/TasksView.vue"),
-              meta: {
-                headline: "",
-              }
-            },
+            }
           ]
-        } */]
+        }]
     },
 
   ],

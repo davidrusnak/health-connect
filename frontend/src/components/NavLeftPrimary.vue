@@ -36,7 +36,7 @@
   </template>
 
   <template v-else>
-    <div class="fixed top-20 left-0 right-0 w-[4.6rem] xl:w-full max-w-fit transition-all ease-in-out">
+    <div class="fixed top-24 left-0 right-0 w-[4.6rem] xl:w-full max-w-fit transition-all ease-in-out">
       <n-menu :options="menuOptions" v-model:value="selectedKey" :icon-size="28" class="transition-all ease-in-out"
         @update-value="(routeName: string) => emit('clickedEntry', routeName)" />
     </div>
@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { h, ref, watch } from "vue";
+import { computed, h, ref, watch } from "vue";
 import type { Component } from "vue";
 import { NIcon } from "naive-ui";
 import type { MenuOption } from "naive-ui";
@@ -53,13 +53,14 @@ import { Menu as MenuIcon } from "@vicons/ionicons5";
 import Icon from "./Icon.vue";
 import { useRoute } from "vue-router";
 import { default_route_name } from "../router";
-
+import { useOptionsStore } from "@/stores/options";
 
 const props = defineProps<{
   mobile?: boolean;
 }>();
 
 const open = ref(true);
+const route = useRoute();
 
 function renderIcon(icon: Component, name?: string) {
   return () => h(NIcon, null, { default: () => h(icon, { name }) });
@@ -69,67 +70,132 @@ const emit = defineEmits<{
   clickedEntry: [name: string];
 }>();
 
-const menuOptions: MenuOption[] = [
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: "doctor-home",
+let menuOptions: MenuOption[] = [];
+if (route.name?.toString().startsWith("doctor")) {
+  menuOptions = [
+    {
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: "doctor-home",
+            },
           },
-        },
-        { default: () => "Dashboard" }
-      ),
-    key: "home",
-    icon: renderIcon(Icon, "home"),
-  },
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: "doctor-patients",
+          { default: () => "Dashboard" }
+        ),
+      key: "home",
+      icon: renderIcon(Icon, "home"),
+    },
+    {
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: "doctor-patients",
+            },
           },
-        },
-        { default: () => "Pacienti" }
-      ),
-    key: "doctor-patients",
-    icon: renderIcon(Icon, "home"),
-  },
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: "doctor-requests",
+          { default: () => "Pacienti" }
+        ),
+      key: "doctor-patients",
+      icon: renderIcon(Icon, "home"),
+    },
+    {
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: "doctor-requests",
+            },
           },
-        },
-        { default: () => "Požadavky" }
-      ),
-    key: "doctor-requests",
-    icon: renderIcon(Icon, "home"),
-  },
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: "doctor-edu-resources",
+          { default: () => "Žádosti" }
+        ),
+      key: "doctor-requests",
+      icon: renderIcon(Icon, "home"),
+    },
+    {
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: "doctor-edu-resources",
+            },
           },
-        },
-        { default: () => "Edukační materiály" }
-      ),
-    key: "doctor-edu-resources",
-    icon: renderIcon(Icon, "book"),
-  }
-];
+          { default: () => "Edukační materiály" }
+        ),
+      key: "doctor-edu-resources",
+      icon: renderIcon(Icon, "book"),
+    }
+  ];
+} else {
+  // patient routes
+  menuOptions = [
+    {
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: "patient-home",
+            },
+          },
+          { default: () => "Domov" }
+        ),
+      key: "patient-home",
+      icon: renderIcon(Icon, "home"),
+    },
+    {
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: "patient-reports",
+            },
+          },
+          { default: () => "Lékařské zprávy" }
+        ),
+      key: "patient-reports",
+      icon: renderIcon(Icon, "records"),
+    },
+    {
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: "patient-requests",
+            },
+          },
+          { default: () => "Žádosti" }
+        ),
+      key: "patient-requests",
+      icon: renderIcon(Icon, "ask"),
+    },
+    {
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: "patient-edu-resources",
+            },
+          },
+          { default: () => "Edukační materiály" }
+        ),
+      key: "patient-edu-resources",
+      icon: renderIcon(Icon, "book"),
+    }
+  ];
+}
+
+
+
 
 // make sure the selected menu item matches the route
-const route = useRoute();
 const selectedKey = ref(
   fuzzyMatchOptionKey(route.name?.toString(), menuOptions)
 );

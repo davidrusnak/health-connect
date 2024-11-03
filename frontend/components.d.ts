@@ -7,7 +7,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Button: typeof import('./src/components/Button.vue')['default']
     Card: typeof import('./src/components/Card.vue')['default']
+    copy: typeof import('./src/components/PatientsTable copy.vue')['default']
     EduResourceCard: typeof import('./src/components/EduResourceCard.vue')['default']
     EduResourceEditor: typeof import('./src/components/EduResourceEditor.vue')['default']
     EduResourceList: typeof import('./src/components/EduResourceList.vue')['default']
@@ -37,10 +39,12 @@ declare module 'vue' {
     NLoadingBarProvider: typeof import('naive-ui')['NLoadingBarProvider']
     NMenu: typeof import('naive-ui')['NMenu']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
+    NRadio: typeof import('naive-ui')['NRadio']
     NSpin: typeof import('naive-ui')['NSpin']
     NTable: typeof import('naive-ui')['NTable']
     NTableColumn: typeof import('naive-ui')['NTableColumn']
     PatientsTable: typeof import('./src/components/PatientsTable.vue')['default']
+    RequestTable: typeof import('./src/components/RequestTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TextButton: typeof import('./src/components/TextButton.vue')['default']

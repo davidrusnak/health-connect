@@ -20,7 +20,7 @@ function openResource(doc: EduResource) {
 function createNew() {
   // TODO: call backend to create new doc
 
-  router.push({ name: 'doctor-edu-resource-edit', params: { id: '2' } });
+  router.push({ name: 'doctor-edu-resource-edit', params: { id: '1' } });
 }
 </script>
 

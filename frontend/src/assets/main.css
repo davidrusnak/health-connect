@@ -100,7 +100,7 @@ a.regular {
 }
 
 .main-layout-page {
-  @apply flex flex-col space-y-1.5 lg:space-y-6;
+  @apply flex flex-col space-y-1.5 lg:space-y-6 lg:mt-6;
 }
 .main-layout-page > h1 {
   @apply text-2xl sm:text-2xl md:text-3xl xl:text-3xl tracking-tight font-extrabold text-gray-900;
@@ -134,121 +134,6 @@ a > h2 {
 }
 .link-hovered {
   @apply text-black decoration-hc-primary;
-}
-.link-external {
-  @apply decoration-hc-primary hover:text-black;
-}
-
-/* 
-a {
-  @apply underline;
-}
-
-a > button, a > button > span {
-  @apply no-underline;
-} */
-
-/**
- * Explanation tokens
- */
-.token {
-  @apply underline decoration-slate-300 rounded p-1 py-1.5 px-0 cursor-help decoration-solid decoration-2 underline-offset-4 hover:decoration-slate-500;
-}
-.token-dg {
-  @apply decoration-slate-400 bg-slate-100 hover:bg-slate-200; /*bg-yellow-200;*/ /*decoration-yellow-400;*/
-}
-.token-med {
-  @apply decoration-orange-400 bg-orange-100 hover:bg-orange-200; /*decoration-hc-primary bg-green-200 hover:bg-green-200;*/
-}
-.token-med > * {
-  @apply !inline-block !no-underline py-1;
-  vertical-align: middle;
-  line-height: normal;
-}
-.token-term {
-  @apply decoration-slate-100 bg-slate-200 hover:bg-slate-200;
-}
-.token-search {
-  @apply decoration-slate-100 bg-slate-200 hover:bg-slate-200 cursor-default decoration-0 no-underline underline-offset-1 pb-1 px-0.5;
-}
-
-/**
- * Tags
-*/
-.tag {
-  @apply font-semibold;
-  line-height: 1;
-  background-color: rgba(176, 176, 176, 0.12);
-  border-radius: 1rem;
-  color: #525252;
-  padding: 0.2rem 1rem;
-  height: 2.8rem;
-  white-space: nowrap;
-  position: relative;
-  box-sizing: border-box;
-  cursor: default;
-  display: inline-flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  max-width: inherit;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  display: flex-inline;
-}
-.report-tag-blue {
-  background-color: rgba(31, 119, 221, 0.12);
-  color: #1374e4;
-}
-.report-tag-green {
-  color: rgb(23, 126, 71);
-  background-color: rgba(24, 160, 88, 0.12);
-}
-.report-tag-grey {
-  color: #979797;
-  background-color: rgba(165, 165, 165, 0.12);
-}
-.report-tag-yellow {
-  @apply text-orange-500;
-  background-color: rgba(240, 160, 32, 0.15);
-}
-.report-tag-yellow-text {
-  @apply text-orange-500;
-}
-
-/**
- * Drugs card
- */
-.glossary-card h3 {
-  margin-top: 0.85rem;
-}
-
-.glossary-card a {
-  @apply link link-external;
-}
-
-/**
-  * Animations
-  */
-.hop-enter-active,
-.hop-leave-active {
-  transition:
-    opacity 0.12s,
-    transform 0.12s;
-}
-.hop-enter-from,
-.hop-leave-to {
-  opacity: 0;
-  transform: translateX(-0.5%);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 
 /**

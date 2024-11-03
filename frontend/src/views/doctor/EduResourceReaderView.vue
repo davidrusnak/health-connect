@@ -18,11 +18,11 @@
           @click="router.push({ name: 'doctor-edu-resource-edit', params: { id: 1 } })">Editovat</n-button>
       </div>
     </div>
-  </div>
-  <div class="max-w-6xl my-8">
-    <Card>
-      <div v-if="id === '1'" v-html="example" class="m-8 mt-12"></div>
-    </Card>
+    <div class="max-w-6xl my-8">
+      <Card>
+        <div v-if="id === '1'" v-html="example" class="m-8 mt-12"></div>
+      </Card>
+    </div>
   </div>
 </template>
 

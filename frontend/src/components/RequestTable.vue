@@ -10,12 +10,12 @@ import { NButton, NTag, useMessage } from 'naive-ui'
 
 interface RowData {
   key: number
-  name: string
-  age: number
-  sex: string,
-  tags: string[],
-  status: string,
-  status_details?: string
+  patient: string
+  type: string
+  type_label: string,
+  timeCreated: string,
+  timeUpdated: string,
+  status: string
 }
 
 function createColumns(router): DataTableColumns<RowData> {
@@ -38,39 +38,21 @@ function createColumns(router): DataTableColumns<RowData> {
       }
     }, */
     {
-      title: 'Jméno',
-      key: 'name'
+      title: 'Pacient',
+      key: 'patient'
     },
     {
-      title: 'Věk',
-      key: 'age'
+      title: 'Druh žádosti',
+      key: 'type_label'
     },
     {
-      title: 'Biologické pohlaví',
-      key: 'sex'
+      title: 'Čas vytvoření',
+      key: 'timeCreated'
     },
-    /* {
-      title: 'Tags',
-      key: 'tags',
-      render(row) {
-        const tags = row.tags.map((tagKey) => {
-          return h(
-            NTag,
-            {
-              style: {
-                marginRight: '6px'
-              },
-              type: 'info',
-              bordered: false
-            },
-            {
-              default: () => tagKey
-            }
-          )
-        })
-        return tags
-      }
-    }, */
+    {
+      title: 'Čas poslední úpravy',
+      key: 'timeUpdated'
+    },
     {
       title: 'Status',
       key: 'status'
@@ -83,7 +65,7 @@ function createColumns(router): DataTableColumns<RowData> {
           NButton,
           {
             size: 'small',
-            onClick: () => router.push(`pacienti/${row.key}`)
+            onClick: () => router.push(`zadosti/${row.key}`)
           },
           { default: () => 'Detail' }
         )
@@ -94,21 +76,14 @@ function createColumns(router): DataTableColumns<RowData> {
 
 function createData(): RowData[] {
   return [
-    {
-      key: 0,
-      "name": "Jana Malá",
-      "age": 34,
-      "sex": "M",
-      "status": "Žádné upozornění",
-      tags: []
-    },
-    {
-      key: 1,
-      "name": "Jana Malá",
-      "age": 34,
-      "sex": "M",
-      "status": "Žádné upozornění",
-      tags: []
+  {
+      "key": 0,
+      "patient": "Jana Malá",
+      "type": "Prescription",
+      "type_label": "Male",
+      "timeCreated": "2021-09-14T14:00:00",
+      "timeUpdated": "2021-09-14T14:00:00",
+      "status": "Pending",
     }
   ]
 }

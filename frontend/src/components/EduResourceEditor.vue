@@ -68,6 +68,17 @@ export default {
 			localData: this.value
 		};
 	},
+	watch: {
+		value(newValue) {
+			if (newValue !== this.localData) {
+				this.localData = newValue;
+			}
+    }},
+	methods: {
+		emitEditorData(data) {
+			this.$emit('update:value', this.localData);
+		}
+	},
 	mounted() {
 		this.config = {
 			toolbar: {

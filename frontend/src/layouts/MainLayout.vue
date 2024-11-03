@@ -3,8 +3,7 @@
     MOBILE 
   -->
   <template v-if="mobile">
-    <Header @clickLogo="router.push({ name: 'doctor-home' })" :shadow="y > 20" :admin="isDoctor"
-      class="select-none"
+    <Header @clickLogo="router.push({ name: 'doctor-home' })" :shadow="y > 20" :admin="isDoctor" class="select-none"
       :page-title="route.name?.toString() == default_route_name ? 'HealthConnect' : route.meta?.headline"
       background="white" :inDeeperPage="!!route?.meta?.parentName">
       <template #left>
@@ -57,18 +56,20 @@
     DESKTOP 
   -->
   <template v-else>
-    <Header @clickLogo="router.push(isDoctor ? { name: 'doctor-home' } : { name: 'patient-home' })" :shadow="y > 20"
-      :admin="isDoctor" class="select-none" background="lg:transparent"
-      :hidePageTitle="(y > 100 && width > 1280) || (y > 20 && width <= 1280)">
+    <Header @clickLogo="router.push({ name: 'home' })" :shadow="y > 20" :admin="isDoctor" class="select-none"
+      background="lg:transparent" :hidePageTitle="(y > 100 && width > 1280) || (y > 20 && width <= 1280)">
       <template #right>
         <!-- second button from the right, aligned left -->
-        <div class="flex flex-row items-start w-64 space-x-3">
-          <img class="w-12 rounded-full" src="/dusek.jpeg" alt="Lékař">
-          <div class="flex flex-col space-y-1 mt-1.5">
-            <span class="font-bold">MUDr. Vítězslav Dušek</span>
-            <span>Oddělení detské onkologie</span>
+        <template v-if="isDoctor">
+
+          <div class="flex flex-row items-start w-64 space-x-3">
+            <img class="w-12 rounded-full" src="/dusek.jpeg" alt="Lékař">
+            <div class="flex flex-col space-y-1 mt-1.5">
+              <span class="font-bold">MUDr. Vítězslav Dušek</span>
+              <span>Klinika detské onkologie</span>
+            </div>
           </div>
-        </div>
+        </template>
       </template>
       <template #right2 v-if="y <= 100">
         <LogoutButton />
@@ -104,24 +105,20 @@
                   </n-icon>
                 </h1>
                 <h1 v-if="!mobile">
-                  <template v-if="route.name === 'infolib-website-detail'">{{ route.params.domain }}.cz</template>
-                  <template v-else>{{ route.meta?.headline }}</template>
+                  {{ route.meta?.headline }}
                 </h1>
               </div>
               <p v-if="route.meta?.description">
                 {{ route.meta?.description }}
               </p>
               <router-view v-slot="{ Component }">
-                        <component :is="Component" class="view main-content z-10" :key="route.path"
-                          ref="currentComponent" :class="{ opacity0: route_is_loading }" />
+                <component :is="Component" class="view main-content z-10" :key="route.path" ref="currentComponent"
+                  :class="{ opacity0: route_is_loading }" />
               </router-view>
             </div>
           </template>
         </main>
       </div>
-      <!-- <footer class="h-auto text-slate-500 text-center mb-8">
-        <n-button strong secondary size="small">Odeslat zpětnou vazbu</n-button>
-      </footer> -->
     </div>
   </template>
 </template>
@@ -144,7 +141,10 @@ const { y } = useWindowScroll();
 const { width } = useWindowSize();
 
 const options = useOptionsStore();
-const isDoctor = computed(() => options.userRole === 'doctor');
+const isDoctor = computed(() => {
+  const routeName = route.name;
+  return typeof routeName === 'string' && routeName.startsWith('doctor');
+});
 
 const props = defineProps<{
   disableChildComponentTransition?: boolean;

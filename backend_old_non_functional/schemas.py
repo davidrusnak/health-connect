@@ -3,7 +3,7 @@ from fastapi import File
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
-from backend_old_non_functional.models import RequestModel
+from models import RequestModel
 from models import RequestType, RequestorType
 
 
